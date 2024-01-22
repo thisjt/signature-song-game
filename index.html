@@ -33,7 +33,8 @@
 			.header,
 			.playlist,
 			.playercontainer,
-			.controls {
+			.controls,
+			.instructions {
 				max-width: 1000px;
 				margin: 0.5rem auto;
 				padding: 1rem;
@@ -93,10 +94,14 @@
 				align-items: center;
 				justify-content: center;
 			}
+
+			.instructions {
+				font-size: 60%;
+			}
 		</style>
 	</head>
 	<body>
-		<div class="header">Signature Sound Quiz <sup>by&nbsp;thisjt</sup></div>
+		<div class="header">Signature Sound Quiz <sup>by&nbsp;thisjt.me</sup></div>
 		<div class="playercontainer">
 			<iframe
 				id="ytplayer"
@@ -132,6 +137,23 @@
 				type="submit"
 				id="playlistloaderbutton"
 				value="Load Playlist" />
+		</div>
+		<div class="instructions">
+			<b>How to use:</b><br /><br />
+			This simple web app is divided into 3 areas. The youtube video area, controls, and the playlist loader.<br /><br />
+			The first area is the youtube video area, where the music is loaded and is controlled. This is the area where the seeker will be controlled and it will also show the
+			title depending on whether the shroud is hidden or not.<br /><br />
+			The second area is the controls. There are 4 buttons. First button plays the video at 0:20 and pauses after 0:23. Second button plays the current seeker position for 3
+			seconds. Third button stops the current song and plays another song in a shuffle. Last button is for showing/hiding the shroud.<br /><br />
+			Last area is for the loading of your preferred playlist to be shuffled. It will accept either the Playlist ID or the URL to the playlist itself as long as it is public.
+			The default loaded playlist is
+			<a
+				style="color: #009dff"
+				href="https://www.youtube.com/playlist?list=PL9RiXq3CWn9rA8MIu14yONp2ufqkvrrJd"
+				target="_blank"
+				>GENT's Kpop Songs 2024-2025</a
+			>.<br /><br />
+			If the buttons don't work properly, make sure to interact with the video above first before pressing the buttons below.
 		</div>
 
 		<script>
