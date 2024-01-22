@@ -29,30 +29,33 @@
 		</div>
 		<div class="playercontainer">
 			<iframe
-				id="player"
+				id="ytplayer"
 				type="text/html"
 				width="480"
 				height="270"
 				src="https://www.youtube.com/embed/?listType=playlist&list=PL9RiXq3CWn9rA8MIu14yONp2ufqkvrrJd&origin=https://thisjt.me"
 				frameborder="0"></iframe>
 		</div>
+		<button onclick="player.playVideo()">Play Video</button>
 
 		<script>
 			// 2. This code loads the IFrame Player API code asynchronously.
 			var tag = document.createElement('script');
+			var player;
 
 			tag.src = 'https://www.youtube.com/iframe_api';
 			var firstScriptTag = document.getElementsByTagName('script')[0];
 			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-			let player;
 			function onYouTubeIframeAPIReady() {
 				setTimeout(() => {
 					player = new YT.Player('ytplayer', {
 						width: '640',
 						height: '390',
 					});
-					console.log(player);
+					setTimeout(() => {
+						console.log(player);
+					}, 3000);
 				}, 3000);
 			}
 		</script>
