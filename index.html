@@ -15,15 +15,47 @@
 				padding: 0;
 				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 				background-color: #2c2c2c;
+				font-size: 200%;
+				color: #eee;
 			}
 			.playercontainer {
 				overflow: hidden;
 				text-align: center;
 			}
+
+			.playlist,
+			.songs,
+			.playercontainer,
+			.controls {
+				max-width: 1000px;
+				margin: 0.5rem auto;
+				padding: 1rem;
+				background-color: #343434;
+			}
+
+			.playlist input[type='text'] {
+				width: 80%;
+				font-size: inherit;
+				background-color: transparent;
+				border: 2px solid #aaa;
+				color: inherit;
+			}
+			.playlist input[type='submit'] {
+				width: 18%;
+				font-size: inherit;
+				background-color: transparent;
+				border: 2px solid #aaa;
+				color: inherit;
+			}
 		</style>
 	</head>
 	<body>
-		<div class="playlist"><input type="text" /> <input type="submit" /></div>
+		<div class="playlist">
+			<input type="text" />
+			<input
+				type="submit"
+				value="Load" />
+		</div>
 		<div class="songs">
 			<textarea></textarea>
 		</div>
@@ -33,31 +65,43 @@
 				type="text/html"
 				width="480"
 				height="270"
-				src="https://www.youtube.com/embed/?listType=playlist&list=PL9RiXq3CWn9rA8MIu14yONp2ufqkvrrJd&origin=https://thisjt.me&enablejsapi=1"
+				src="https://www.youtube.com/embed/?listType=playlist&list=PL9RiXq3CWn9rA8MIu14yONp2ufqkvrrJd&enablejsapi=1&mute=1"
 				frameborder="0"></iframe>
 		</div>
-		<button onclick="player.playVideo()">Play Video</button>
+		<div class="controls">
+			<button id="playvideo">Play Video</button>
+		</div>
 
 		<script>
 			// 2. This code loads the IFrame Player API code asynchronously.
 			var tag = document.createElement('script');
 			var player;
+			var played = false;
 
 			tag.src = 'https://www.youtube.com/iframe_api';
 			var firstScriptTag = document.getElementsByTagName('script')[0];
 			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 			function onYouTubeIframeAPIReady() {
-				setTimeout(() => {
-					player = new YT.Player('ytplayer', {
-						width: '640',
-						height: '390',
-					});
-					setTimeout(() => {
-						console.log(player);
-					}, 3000);
-				}, 3000);
+				player = new YT.Player('ytplayer', {
+					playerVars: {
+						disablekb: 1,
+					},
+					events: {
+						// onStateChange: onPlayerStateChange,
+					},
+				});
 			}
+
+			playvideo.addEventListener('click', () => {
+				player.setShuffle(true);
+				player.nextVideo();
+				player.seekTo(20);
+				player.playVideo();
+				setTimeout(() => {
+					player.pauseVideo();
+				}, 3000);
+			});
 		</script>
 	</body>
 </html>
