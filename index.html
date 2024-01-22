@@ -10,6 +10,9 @@
 			content="width=device-width, initial-scale=1.0" />
 		<title>Signature Sound Game | thisjt.me</title>
 		<style>
+			* {
+				box-sizing: border-box;
+			}
 			body {
 				margin: 0;
 				padding: 0;
@@ -18,11 +21,13 @@
 				font-size: 200%;
 				color: #eee;
 			}
-			.playercontainer {
+			.playercontainer,
+			.header {
 				overflow: hidden;
 				text-align: center;
 			}
 
+			.header,
 			.playlist,
 			.playercontainer,
 			.controls {
@@ -31,6 +36,16 @@
 				padding: 1rem;
 				background-color: #343434;
 			}
+			.header sup {
+				color: #535353;
+			}
+
+			.playercontainer {
+				display: flex;
+			}
+			.playercontainer iframe {
+				width: 100%;
+			}
 
 			.playlist input[type='text'] {
 				font-size: inherit;
@@ -38,6 +53,8 @@
 				border: 2px solid #aaa;
 				color: inherit;
 				padding: 10px;
+				margin-bottom: 10px;
+				max-width: 100%;
 			}
 			.playlist input[type='submit'] {
 				font-size: inherit;
@@ -56,16 +73,12 @@
 				background-color: transparent;
 				border: 2px solid #aaa;
 				color: inherit;
+				margin-bottom: 10px;
 			}
 		</style>
 	</head>
 	<body>
-		<div class="playlist">
-			<input type="text" />
-			<input
-				type="submit"
-				value="Load" />
-		</div>
+		<div class="header">Signature Sound Quiz <sup>by thisjt</sup></div>
 		<div class="playercontainer">
 			<iframe
 				id="ytplayer"
@@ -78,6 +91,15 @@
 		<div class="controls">
 			<button id="playvideo">Play Video</button>
 			<button id="nextsong">Next Song</button>
+		</div>
+		<div class="playlist">
+			<input
+				type="text"
+				id="playlistloader" />
+			<input
+				type="submit"
+				id="playlistloaderbutton"
+				value="Load Playlist ID" />
 		</div>
 
 		<script>
@@ -119,6 +141,11 @@
 				player.setShuffle(true);
 				player.nextVideo();
 				player.pauseVideo();
+			});
+
+			playlistloaderbutton.addEventListener('click', () => {
+				const playliststring = playlistloader.value;
+				player.loadPlaylist(playliststring);
 			});
 		</script>
 	</body>
