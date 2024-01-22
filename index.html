@@ -28,7 +28,13 @@
 			<textarea></textarea>
 		</div>
 		<div class="playercontainer">
-			<div id="ytplayer"></div>
+			<iframe
+				id="player"
+				type="text/html"
+				width="480"
+				height="270"
+				src="https://www.youtube.com/embed/?listType=playlist&list=PL9RiXq3CWn9rA8MIu14yONp2ufqkvrrJd&origin=https://thisjt.me"
+				frameborder="0"></iframe>
 		</div>
 
 		<script>
@@ -45,20 +51,8 @@
 					player = new YT.Player('ytplayer', {
 						width: '640',
 						height: '390',
-
-						loadPlaylist: {
-							listType: 'playlist',
-							list: 'PL9RiXq3CWn9rA8MIu14yONp2ufqkvrrJd',
-							index: '0',
-							startSeconds: '0',
-						},
-						events: {
-							onReady: (evt) => {
-								evt.target.loadPlaylist('PL9RiXq3CWn9rA8MIu14yONp2ufqkvrrJd');
-							},
-							onStateChange: () => {},
-						},
 					});
+					console.log(player);
 				}, 3000);
 			}
 		</script>
