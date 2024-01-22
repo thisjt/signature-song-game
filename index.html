@@ -9,7 +9,6 @@
 			name="viewport"
 			content="width=device-width, initial-scale=1.0" />
 		<title>Signature Sound Game</title>
-
 		<style>
 			body {
 				margin: 0;
@@ -29,12 +28,39 @@
 			<textarea></textarea>
 		</div>
 		<div class="playercontainer">
-			<iframe id="ytplayer" type="text/html" width="720" height="405" src="https://www.youtube.com/embed/?listType=playlist&list=PLOHoVaTp8R7dfrJW5pumS0iD_dhlXKv17" frameborder="0" allowfullscreen>
+			<div id="ytplayer"></div>
 		</div>
 
 		<script>
-			const player = document.querySelector('#ytplayer');
-			
+			// 2. This code loads the IFrame Player API code asynchronously.
+			var tag = document.createElement('script');
+
+			tag.src = 'https://www.youtube.com/iframe_api';
+			var firstScriptTag = document.getElementsByTagName('script')[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+			let player;
+			function onYouTubeIframeAPIReady() {
+				setTimeout(() => {
+					player = new YT.Player('ytplayer', {
+						width: '640',
+						height: '390',
+
+						loadPlaylist: {
+							listType: 'playlist',
+							list: 'PL9RiXq3CWn9rA8MIu14yONp2ufqkvrrJd',
+							index: '0',
+							startSeconds: '0',
+						},
+						events: {
+							onReady: (evt) => {
+								evt.target.loadPlaylist('PL9RiXq3CWn9rA8MIu14yONp2ufqkvrrJd');
+							},
+							onStateChange: () => {},
+						},
+					});
+				}, 3000);
+			}
 		</script>
 	</body>
 </html>
