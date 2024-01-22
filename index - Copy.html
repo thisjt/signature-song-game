@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Signature Sound Game</title>
+
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				background-color: #2c2c2c;
+			}
+			.playercontainer {
+				overflow: hidden;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="playlist"><input type="text" /> <input type="submit" /></div>
+		<div class="songs">
+			<textarea></textarea>
+		</div>
+		<div class="playercontainer">
+			<div id="ytplayer"></div>
+		</div>
+
+		<script>
+			// Load the IFrame Player API code asynchronously.
+			var tag = document.createElement('script');
+			tag.src = 'https://www.youtube.com/player_api';
+			var firstScriptTag = document.getElementsByTagName('script')[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+			// Replace the 'ytplayer' element with an <iframe> and
+			// YouTube player after the API code downloads.
+			var player;
+			function onYouTubePlayerAPIReady() {
+				setTimeout(() => {
+					player = new YT.Player('ytplayer', {
+						height: '270',
+						width: '480',
+						videoId: 'fE2h3lGlOsk', // https://www.youtube.com/watch?v=gx_mg-1WhWw
+						playerVars: {
+							disablekb: 1,
+							start: 20,
+							end: 25,
+							playsinline: 1,
+						},
+						events: {
+							onReady: onPlayerReady,
+							onStateChange: onPlayerStateChange,
+						},
+					});
+				}, 3000);
+
+				// setTimeout(() => {
+				// 	player.loadVideoById({
+				// 		videoId: 'fE2h3lGlOsk',
+				// 		startSeconds: 20,
+				// 		endSeconds: 25,
+				// 	});
+				// }, 20000);
+			}
+
+			function onPlayerReady(event) {
+				setTimeout(() => {
+					event.target.playVideo();
+				}, 3000);
+			}
+
+			var done = false;
+			function onPlayerStateChange(event) {
+				if (event.data == YT.PlayerState.PLAYING && !done) {
+					setTimeout(stopVideo, 3000);
+					done = true;
+				}
+			}
+			function stopVideo() {
+				player.stopVideo();
+			}
+		</script>
+	</body>
+</html>
