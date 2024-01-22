@@ -70,9 +70,9 @@
 			<iframe
 				id="ytplayer"
 				type="text/html"
-				width="480"
+				width="420"
 				height="270"
-				src="https://www.youtube.com/embed/?listType=playlist&list=PL9RiXq3CWn9rA8MIu14yONp2ufqkvrrJd&enablejsapi=1&autoplay=0"
+				src="https://www.youtube.com/embed/?listType=playlist&list=PL9RiXq3CWn9rA8MIu14yONp2ufqkvrrJd&enablejsapi=1&autoplay=0&mute=1"
 				frameborder="0"></iframe>
 		</div>
 		<div class="controls">
@@ -91,12 +91,24 @@
 			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 			function onYouTubeIframeAPIReady() {
-				player = new YT.Player('ytplayer', {});
+				player = new YT.Player('ytplayer', {
+					playerVars: {
+						autoplay: 0,
+					},
+					events: {
+						onReady: onPlayerReady,
+					},
+				});
+			}
+
+			function onPlayerReady() {
+				player.mute();
 			}
 
 			playvideo.addEventListener('click', () => {
-				player.seekTo(20);
+				player.seekTo(20, true);
 				player.playVideo();
+				player.unMute();
 				setTimeout(() => {
 					player.pauseVideo();
 				}, 3000);
@@ -105,6 +117,7 @@
 			nextsong.addEventListener('click', () => {
 				player.setShuffle(true);
 				player.nextVideo();
+				player.pauseVideo();
 			});
 		</script>
 	</body>
