@@ -26,6 +26,9 @@
 				overflow: hidden;
 				text-align: center;
 			}
+			.header {
+				word-wrap: break-word;
+			}
 
 			.header,
 			.playlist,
@@ -48,7 +51,7 @@
 			}
 
 			.playlist input[type='text'] {
-				font-size: inherit;
+				font-size: 80%;
 				background-color: transparent;
 				border: 2px solid #aaa;
 				color: inherit;
@@ -57,7 +60,7 @@
 				max-width: 100%;
 			}
 			.playlist input[type='submit'] {
-				font-size: inherit;
+				font-size: 80%;
 				background-color: transparent;
 				border: 2px solid #aaa;
 				color: inherit;
@@ -65,20 +68,34 @@
 			}
 
 			.controls {
-				text-align: center;
+				display: flex;
+				justify-content: center;
 			}
 			.controls button {
-				padding: 10px 30px;
-				font-size: inherit;
+				padding: 10px 10px;
+				font-size: 80%;
 				background-color: transparent;
 				border: 2px solid #aaa;
 				color: inherit;
-				margin-bottom: 10px;
+				display: flex;
+				align-items: center;
+				margin: 10px;
+			}
+			.controls button img {
+				margin-left: 5px;
+			}
+
+			.shroud {
+				position: absolute;
+				background-color: #000;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 			}
 		</style>
 	</head>
 	<body>
-		<div class="header">Signature Sound Quiz <sup>by thisjt</sup></div>
+		<div class="header">Signature Sound Quiz <sup>by&nbsp;thisjt</sup></div>
 		<div class="playercontainer">
 			<iframe
 				id="ytplayer"
@@ -87,10 +104,24 @@
 				height="270"
 				src="https://www.youtube.com/embed/?listType=playlist&list=PL9RiXq3CWn9rA8MIu14yONp2ufqkvrrJd&enablejsapi=1&autoplay=0&mute=1"
 				frameborder="0"></iframe>
+			<div
+				class="shroud"
+				id="shroud">
+				Hidden
+			</div>
 		</div>
 		<div class="controls">
-			<button id="playvideo">Play Video</button>
-			<button id="nextsong">Next Song</button>
+			<button id="playvideo">20s <img src="./res/play.png" /></button>
+			<button id="playvideonow">Seeker <img src="./res/play.png" /></button>
+			<button id="nextsong">Next <img src="./res/next-button.png" /></button>
+			<button id="showshroud">
+				<img src="./res/view.png" />
+			</button>
+			<button
+				id="hideshroud"
+				style="display: none">
+				<img src="./res/hide.png" />
+			</button>
 		</div>
 		<div class="playlist">
 			<input
@@ -125,14 +156,26 @@
 
 			function onPlayerReady() {
 				player.mute();
+				const playerelement = document.querySelector('#ytplayer');
+				document.querySelector('.shroud').setAttribute('style', `width:${playerelement.offsetWidth}px;height:${playerelement.offsetHeight * 0.7}px;`);
 			}
 
 			playvideo.addEventListener('click', () => {
 				player.seekTo(20, true);
-				player.playVideo();
 				player.unMute();
+				player.playVideo();
 				setTimeout(() => {
 					player.pauseVideo();
+					player.mute();
+				}, 3000);
+			});
+
+			playvideonow.addEventListener('click', () => {
+				player.unMute();
+				player.playVideo();
+				setTimeout(() => {
+					player.pauseVideo();
+					player.mute();
 				}, 3000);
 			});
 
@@ -146,6 +189,18 @@
 			playlistloaderbutton.addEventListener('click', () => {
 				const playliststring = playlistloader.value;
 				player.loadPlaylist(playliststring);
+			});
+
+			showshroud.addEventListener('click', () => {
+				hideshroud.setAttribute('style', '');
+				showshroud.setAttribute('style', 'display:none');
+				shroud.style.display = 'none';
+			});
+
+			hideshroud.addEventListener('click', () => {
+				showshroud.setAttribute('style', '');
+				hideshroud.setAttribute('style', 'display:none');
+				shroud.style.display = '';
 			});
 		</script>
 	</body>
