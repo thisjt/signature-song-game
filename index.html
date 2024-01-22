@@ -188,8 +188,20 @@
 			});
 
 			playlistloaderbutton.addEventListener('click', () => {
-				const playliststring = playlistloader.value;
-				player.loadPlaylist(playliststring);
+				let playliststring = playlistloader.value;
+				let urlobject = false;
+				try {
+					urlobject = new URL(playliststring);
+				} catch (e) {
+					urlobject = false;
+				}
+				if (urlobject) {
+					playliststring = urlobject.searchParams.get('list') || '';
+				}
+				player.loadPlaylist({
+					list: playliststring,
+					listType: 'playlist',
+				});
 			});
 
 			showshroud.addEventListener('click', () => {
