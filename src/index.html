@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Style</title>
+	</head>
+	<body>
+		<div id="ytplayer"></div>
+
+		<script>
+			// Load the IFrame Player API code asynchronously.
+			var tag = document.createElement('script');
+			tag.src = 'https://www.youtube.com/player_api';
+			var firstScriptTag = document.getElementsByTagName('script')[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+			// Replace the 'ytplayer' element with an <iframe> and
+			// YouTube player after the API code downloads.
+			var player;
+			function onYouTubePlayerAPIReady() {
+				setTimeout(() => {
+					player = new YT.Player('ytplayer', {
+						height: '200',
+						width: '200',
+						videoId: '5e3rKInegeU',
+						playerVars: {
+							disablekb: 1,
+							autoplay: 1,
+							start: 20,
+							end: 25,
+						},
+					});
+				}, 3000);
+
+				setTimeout(() => {
+					player.loadVideoById({
+						videoId: 'fE2h3lGlOsk',
+						startSeconds: 20,
+						endSeconds: 25,
+					});
+				}, 20000);
+			}
+		</script>
+	</body>
+</html>
