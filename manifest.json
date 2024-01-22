@@ -1,0 +1,18 @@
+{
+	"id": "com.signaturesoundquiz",
+	"name": "Signature Sound Quiz",
+	"description": "Signature Sound Quiz",
+	"icons": [
+		{
+			"src": "/signature-song-game/res/logo.png",
+			"type": "image/png",
+			"sizes": "128x128"
+		}
+	],
+	"categories": ["entertainment"],
+	"start_url": "https://thisjt.me/signature-song-game",
+	"display": "fullscreen",
+	"background_color": "white",
+	"theme_color": "white",
+	"orientation": "portrait"
+}
