@@ -24,7 +24,6 @@
 			}
 
 			.playlist,
-			.songs,
 			.playercontainer,
 			.controls {
 				max-width: 1000px;
@@ -47,6 +46,17 @@
 				border: 2px solid #aaa;
 				color: inherit;
 			}
+
+			.controls {
+				text-align: center;
+			}
+			.controls button {
+				padding: 10px 30px;
+				font-size: inherit;
+				background-color: transparent;
+				border: 2px solid #aaa;
+				color: inherit;
+			}
 		</style>
 	</head>
 	<body>
@@ -56,20 +66,18 @@
 				type="submit"
 				value="Load" />
 		</div>
-		<div class="songs">
-			<textarea></textarea>
-		</div>
 		<div class="playercontainer">
 			<iframe
 				id="ytplayer"
 				type="text/html"
 				width="480"
 				height="270"
-				src="https://www.youtube.com/embed/?listType=playlist&list=PL9RiXq3CWn9rA8MIu14yONp2ufqkvrrJd&enablejsapi=1&mute=1"
+				src="https://www.youtube.com/embed/?listType=playlist&list=PL9RiXq3CWn9rA8MIu14yONp2ufqkvrrJd&enablejsapi=1&autoplay=0"
 				frameborder="0"></iframe>
 		</div>
 		<div class="controls">
 			<button id="playvideo">Play Video</button>
+			<button id="nextsong">Next Song</button>
 		</div>
 
 		<script>
@@ -83,24 +91,20 @@
 			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 			function onYouTubeIframeAPIReady() {
-				player = new YT.Player('ytplayer', {
-					playerVars: {
-						disablekb: 1,
-					},
-					events: {
-						// onStateChange: onPlayerStateChange,
-					},
-				});
+				player = new YT.Player('ytplayer', {});
 			}
 
 			playvideo.addEventListener('click', () => {
-				player.setShuffle(true);
-				player.nextVideo();
 				player.seekTo(20);
 				player.playVideo();
 				setTimeout(() => {
 					player.pauseVideo();
 				}, 3000);
+			});
+
+			nextsong.addEventListener('click', () => {
+				player.setShuffle(true);
+				player.nextVideo();
 			});
 		</script>
 	</body>
